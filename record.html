@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>充值记录</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/loading.css" />
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<style>
+			.main{border-bottom:1px solid #cfcfcf;background: #fff;padding:0px 12px;box-sizing: border-box;font-size: 15px;}
+			.main-con{padding:8px 0px;border-bottom: 1px solid #cfcfcf;}
+			.cons{display: flex;}
+			.cons div{flex: 1;}
+			.cons .right{text-align: right;}
+			.con-main{margin-top:8px;color: #A2A2A2;font-size: 13px;}
+			.main .main-con:last-child{border-bottom: none;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<section class="main">
+				<article class="main-con" v-cloak v-for="list in liLists">
+					<div class="con-href" @click="details($index)">
+						<div class="cons con-head">
+							<div>游戏充值</div>
+							<div class="right">{{list.pMoney}}</div>
+						</div>
+						<div class="cons con-main">
+							<div>{{list.pStarttime}}</div>
+							<div class="right" v-show="list.pState==0">交易关闭</div>
+							<div class="right" v-show="list.pState==1">付款成功</div>
+						</div>
+					</div>
+				</article>
+			</section>
+			<div class="more">点击加载更多</div>
+			<div class="loading">  
+				<img src="img/loading.gif" /> 
+				<span>加载中...</span>
+			</div>
+			<div class="none">还没有数据哦！</div>
+		</div>
+		<div id="loader8" style="display: none;"></div>
+		<script type="text/javascript" src="js/public.js" ></script>
+		<script>
+			var vm=new Vue({
+                el:".box",
+                data:{
+                    liLists:[],
+                },
+                methods:{
+                	details:function(index){
+                		var payorder=vm.liLists[index].payorder;
+                		var pState=vm.liLists[index].pState;
+                		var orderstate=vm.liLists[index].orderstate;
+                		location.href="details.html?payorder="+payorder+"&merchantid="+merchantid+"&pState="+pState+"&orderstate="+orderstate;
+                	}
+                }
+           })
+			var urls="/ssm/userOrder";
+			var pageSize="12";
+		</script>
+		<script type="text/javascript" src="js/ajax.js" ></script>
+	</body>
+</html>

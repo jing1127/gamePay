@@ -1,0 +1,5 @@
+.more{padding:12px;text-align: center;font-size: 15px;display: none;}
+.none{text-align: center;height: 120px;line-height: 120px;display: none;}
+.loading{padding:12px;text-align: center;display: none;}
+.loading img{width:18px;}
+.loading span{position: relative;top:-3px;left:6px;}

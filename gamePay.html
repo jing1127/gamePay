@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>游戏充值</title>
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<!--<header class="box-header">
+				<section class="header-back">&lt</section>
+				<section class="header-tit">游戏充值</section>
+				<section class="header-list">充值记录</section>
+			</header>-->
+			<section class="box-text">
+				<article class="text-user">
+					<span>游戏名称</span>
+					<span class="user-spe"><input type="text" placeholder="请输入游戏名称" id="gameName" /></span>
+				</article>
+				<article class="text-user1">
+					<span>游戏账号</span>
+					<span class="user-spe"><input type="text" placeholder="请输入游戏账号" id="gameId" /></span>
+				</article>
+			</section>
+			<section class="box-main">
+				<header class="main-header">金额</header>
+				<section class="main-list">
+					<ul class="main-list-sec">
+						<li data-num="100" class="highlight">100元</li>
+						<li data-num="200">200元</li>
+						<li data-num="300">300元</li>
+						<li data-num="400">400元</li>
+						<li data-num="500">500元</li>
+						<li data-num="600">1000元</li>
+						<li data-num="700">2000元</li>
+						<li data-num="800">3000元</li>
+						<li id="others" class="more">其他</li>
+					</ul>
+				</section>
+			</section>
+			<section class="box-express">
+				<span>备注：</span>
+				<span class="express-spe"><input type="text" placeholder="可输入您的手机号或游戏分区" id="express" /></span>
+			</section>
+			<footer class="box-footer">
+				<section class="footer-btn">立即充值</section>
+			</footer>
+			<div class="others">
+				<div class="others-con">
+					<header class="con-header">请输入金额</header>
+					<section class="con-num">
+						<span>￥</span>
+						<span>
+							<input type="text" id="money" />
+						</span>
+					</section>
+					<section class="tips">最高金额50000</section>
+					<footer class="con-footer">
+						<section class="btn-yes">确定</section>
+					</footer>
+				</div>
+			</div>
+			<div class="modal">
+	            <div class="modal-dialog">
+		            <div class="modal-content">
+			            <form id="buy-form">
+			                <div class="tips" id="error"></div>
+			            </form>
+					</div>
+				 </div>
+		     </div>
+		</div>
+		<div id="loader8" style="display: none;"></div>
+		<script type="text/javascript" src="js/public.js" ></script>
+		<script>
+			var thisNum =100;
+			$(".main-list-sec li").click(function () {
+                thisNum = $(this).data("num");
+                var _index = $(this).index();
+                $(this).addClass("highlight").siblings("li").removeClass("highlight");
+            });
+	        $("#others").bind('click',function(){
+	           $(".others").show();	
+	        })
+	        $("#money").keyup(function(){
+	        	
+	        	if(Math.floor($("#money").val())>=100 && Math.floor($("#money").val())<=50000){
+            		$(".btn-yes").css("border","1px solid #FF2447");
+	        		$(".btn-yes").css("color","#FF2447");
+            	}else{
+            		$(".btn-yes").css("border","1px solid #a2a2a2");
+	        		$(".btn-yes").css("color","#a2a2a2");
+            	}
+	        	
+	        })
+            $(".btn-yes").bind('click',function(){
+            	var money=Math.floor($("#money").val());
+            	$("#money").val(money);
+            	if(money>=100 && money<=50000){
+            		$(".others").hide();
+            		thisNum=money;
+            		$(".more").html(money+"元");
+            		console.log(thisNum);
+            	}
+            })
+            function toDecimal2(x){
+				    var f = parseFloat(x);
+				    if (isNaN(f)) {
+				        return false;
+				    }
+				    var f = Math.round(x*100)/100;
+				    var s = f.toString();
+				    var rs = s.indexOf('.');
+				    if (rs < 0) {
+				        rs = s.length;
+				        s += '.';
+				    }
+				    while (s.length <= rs + 2) {
+				        s += '0';
+				    }
+				    return s;
+				}
+            $(".footer-btn").bind('click',function(){
+            	if($("#gameName").val()==""){
+            		$(".modal").show();
+					$("#error").html("请输入游戏名称!");
+					setTimeout(function(){
+						$(".modal").hide();
+					},1200);
+            	}else if($("#gameId").val()==""){
+            		$(".modal").show();
+					$("#error").html("请输入游戏账号!");
+					setTimeout(function(){
+						$(".modal").hide();
+					},1200);
+            	}else{
+            		$(".footer-btn").unbind('click');
+					$("#loader8").show();
+					$.ajax({
+							type:"post",
+							url:"http://192.168.2.208:8080/ssm/userPay",
+							data:{
+								"merchantid":"M1707021210540265",
+								"gName":$("#gameName").val(),
+								"gId":$("#gameId").val(),
+								"pMoney":toDecimal2(thisNum),
+								"pMsg":$("#express").val(),
+								},
+								success:function(data){
+									console.log(data.orderNum);
+									location.href=data.orderNum;
+									$("#loader8").hide();
+								},
+					            error:function(){
+						            console.log("操作失败!");
+								}
+						})
+            	}
+            })
+		</script>
+	</body>
+</html>

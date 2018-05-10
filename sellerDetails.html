@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>账单详情</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+		<style>
+			.box,.remark{background: #fff;}
+			.box-head{text-align: center;}
+			.box-head .head-tit1{font-size: 14px;color: #333;}
+			.box-head .head-tit2{margin-top:8px;font-size: 22px;}
+			.box-head .head-tit3{margin-top:8px;font-size: 12px;color: #999;}
+			.box-main1,.box-main2,.remark .main1-det{width:100%;box-sizing: border-box;padding:10px;font-size: 13px;color: #a2a2a2;}
+			.box-main1 .main1-det:last-child,.box-main2{border-bottom: 1px solid #cfcfcf;padding-bottom: 10px;}
+			.main1-det{display: flex;margin-top:10px;}
+			.box-main2 .main1-det:first-child{margin-top:-8px;}
+			.remark .main1-det{border-top:1px solid #e6e6e6;border-bottom: 1px solid #e6e6e6;padding:12px 10px;}
+			.main1-det div{flex: 1;}
+			.main1-det .right{flex: 3;text-align: right;color: #222;}
+		
+		</style>
+	</head>
+	<body class="box-vue">
+		<div class="box">
+			<header class="box-head">
+				<div class="head-tit1">游戏充值</div>
+				<div class="head-tit2">+{{liLists.pMoney}}</div>
+				<div class="head-tit3"></div>
+			</header>
+			<section class="box-main1">
+				<article class="main1-det">
+					<div>游戏名称</div>
+					<div class="right">{{liLists.gName}}</div>
+				</article>
+				<article class="main1-det">
+					<div>游戏账号</div>
+					<div class="right">{{liLists.gId}}</div>
+				</article>
+				<article class="main1-det">
+					<div>充值金额</div>
+					<div class="right">{{liLists.pMoney}}</div>
+				</article>
+			</section>
+			<section class="box-main2">
+				<article class="main1-det">
+					<div>创建时间</div>
+					<div class="right">{{liLists.pStarttime}}</div>
+				</article>
+				<article class="main1-det">
+					<div>订单号</div>
+					<div class="right">{{liLists.payorder}}</div>
+				</article>
+			</section>
+		</div>
+		<section class="remark">
+				<article class="main1-det">
+					<div>备注</div>
+					<div class="right">{{liLists.pMsg}}</div>
+				</article>
+		</section>
+		<footer class="box-footer">
+				<section class="footer-btn">已充值</section>
+		</footer>
+		<script type="text/javascript" src="js/public.js" ></script>
+		<script>
+			var payorder=Request.payorder;
+			var type=Request.type;
+			var pState=Request.pState;
+			if(type==0){
+				$(".box-footer").show();
+				$(".head-tit3").html("未完成");
+			}else{
+				$(".box-footer").hide();
+				$(".head-tit3").html("已完成");
+			}
+			var vm=new Vue({
+                el:".box-vue",
+                data:{
+                    liLists:[],
+                }
+            })
+			$.ajax({
+				type:"post",
+				url:"http://192.168.2.208:8080/ssm/orderDetail",
+				data:{
+					merchantid:merchantid,
+					payorder:payorder
+				},
+				success:function(data){
+					if(data.resultCode=="0000"){
+						vm.liLists=data.resultData;
+					}
+				},
+				error:function(){
+					console.log("error");
+				}
+			});
+			$(".footer-btn").bind('click',function(){
+				$.ajax({
+						type:"post",
+						url:"http://192.168.2.208:8080/ssm/merUpdateOrder",
+						data:{
+							"merchantid":merchantid,
+							"payorder":payorder,
+							"pState":pState
+						},
+						success:function(data){
+							console.log(data);
+							if(data.resultCode=="0000"){
+								location.href="sellerFinish.html?merchantid="+merchantid;
+							}else{
+								console.log("处理失败");
+							}
+						},
+						error:function(){
+							console.log("error");
+						}
+					});
+			})
+		</script>
+	</body>
+</html>

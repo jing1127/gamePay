@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>账单详情</title>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/seller.css" />
+		<link rel="stylesheet" href="css/loading.css" />
+		<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+		<script type="text/javascript" src="js/vue.min.js" ></script>
+	</head>
+	<body class="box-vue">
+		<div class="box">
+			<header class="box-head">
+				<span class="finish-no">未完成</span>
+				<span class="border-red finish-yes">已完成</span>
+			</header>
+			<section class="box-main-seller">
+				<article class="seller-con" v-cloak v-for="list in liLists">
+					<div @click="sellerDetails($index)">
+						<header class="seller-head">
+							<div class="head-order">
+								<span>订单号:</span>
+								<span>{{list.payorder}}</span>
+							</div>
+							<div class="head-status">已完成</div>
+						</header>
+						<section class="seller-main">
+							<article>
+								<div class="main-left">游戏名称:</div>
+								<div class="main-right">{{list.gName}}</div>
+							</article>
+							<article>
+								<div class="main-left">游戏账号:</div>
+								<div class="main-right">{{list.gId}}</div>
+							</article>
+							<article>
+								<div class="main-left">充值金额:</div>
+								<div class="main-right">{{list.pMoney}}元</div>
+							</article>
+							<article>
+								<div class="main-left">下单时间:</div>
+								<div class="main-right main-spe">{{list.pStarttime}}</div>
+							</article>
+						</section>
+					</div>
+				</article>
+			</section>
+			<div class="more">点击加载更多</div>
+			<div class="loading">  
+				<img src="img/loading.gif" /> 
+				<span>加载中...</span>
+			</div>
+			<div class="none">还没有数据哦！</div>
+		</div>
+		<div id="loader8" style="display: none;"></div>
+		<script type="text/javascript" src="js/public.js" ></script>
+		<script>
+			$(".finish-no").bind('click',function(){
+				location.href="sellerDeal.html?merchantid="+merchantid;
+			})
+			var vm=new Vue({
+                el:".box",
+                data:{
+                    liLists:[],
+                },
+                methods:{
+                	sellerDetails:function(index){
+                		var payorder=vm.liLists[index].payorder;
+                		location.href="sellerDetails.html?payorder="+payorder+"&type="+2;
+                	}
+                }
+           })
+			var urls="/ssm/merOrderAll";
+			var pageSize="5";
+		</script>
+		<script type="text/javascript" src="js/ajax.js" ></script>
+	</body>
+</html>

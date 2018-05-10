@@ -1,0 +1,76 @@
+			*{margin:0;padding: 0;}
+			html,body{width:100%;height: 100%;background: #f7f5f5;font-family: "黑体";}
+			ul,li{list-style: none;}
+			.box{width:100%;padding-top:16px;}
+			/*.box,.box-header{width:100%;}
+			.box-header{margin-bottom:14px;box-sizing:border-box;padding:12px 16px;background: #fff;border-bottom: 1px solid #cfcfcf;display: flex;}
+			.box-header section{flex: 1;text-align: center;font-size: 16px;}
+			.box-header .header-back{text-align: left;color: #ff2447;font-weight: bold;font-size: 16px;}
+			.box-header .header-list{text-align: right;font-size: 13px;color: #454545;}*/
+			.box-text{margin-bottom:14px;box-sizing:border-box;padding:0px 0px 0px 16px;border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;background: #fff;font-size: 15px;}
+			.box-text .text-user,.box-text .text-user1,.box-express{height: 34px;line-height: 34px;}
+			.box-text .text-user,.box-express{border-bottom: 1px solid #cfcfcf;}
+			.box-text span,.box-express span{width:26%;display: inline-block;}
+			.box-text .user-spe,.box-express .express-spe{width:62%;}
+			.user-spe input,.express-spe input{width:100%;height: 32px;line-height:32px;border:none;outline: none;font-size: 12px;}
+			.user-spe input::-webkit-input-placeholder,.express-spe input::-webkit-input-placeholder{color:#b2b2b2;}
+			.box-main{margin-bottom:14px;border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;background:#fff;width:100%;box-sizing: border-box;padding:12px 16px 16px 16px;}
+			.box-main .main-header{font-size: 13px;color: #999;}
+			.main-list ul{overflow: hidden;}
+			li{margin-right:3.5%;margin-top:10px;width:31%;border:1px solid #cfcfcf;box-sizing: border-box;padding:8px 0px;text-align: center;border-radius: 5px;letter-spacing: 1px;font-size: 15px;float: left;}
+			.main-list li:nth-child(3),.main-list li:nth-child(6),.main-list li:nth-child(9){margin-right:0;}
+			.highlight{background: #FF2447;color: #fff;border:1px solid #FF2447;}
+			.box-express{padding:0px 16px;border-top:1px solid #cfcfcf;border-bottom:1px solid #cfcfcf;box-sizing: border-box;background: #fff;height: 38px;}
+			.box-footer{width:100%;}
+			.box-footer .footer-btn{width:90%;margin:0 auto;margin-top:40px;background: #FF2447;border-radius: 5px;color: #fff;padding:8px 0px;text-align: center;}
+			.others{width:100%;height: 100%;background: rgba(0,0,0, .4);position: fixed;left:0;top:0;right:0;bottom:0;z-index: 999;display: none;}
+			.others .others-con{box-sizing:border-box;padding:12px;position:relative;top:50%;margin:0 auto;margin-top:-140px;background: #fff;width:260px;height: 180px;border-radius: 4px;font-size: 14px;}
+			.others-con .con-header{margin-bottom:12px;color: #333;}
+			.others-con .con-num{margin-bottom:10px;border-bottom: 1px solid #cfcfcf;height: 28px;}
+			.con-num span{font-weight: bold;}
+			.con-num input{height: 24px;width:160px;border: none;outline:none;font-weight: bold;font-size: 18px;}
+			.others-con .tips{color:#a2a2a2;}
+			.con-footer .btn-yes{width:90%;margin:0 auto;margin-top:30px;text-align: center;border:1px solid #FF2447;box-sizing: border-box;padding:6px 0px;color:#FF2447;border-radius: 4px;font-size: 14px;}
+			#loader8 { 
+			  position: fixed;
+			  top:160px;
+			  left:50%;  
+			  margin-left:-20px;  
+			  border-top: 8px solid rgba(0, 0, 0, 0.2);     
+			  border-right: 8px solid rgba(0, 0, 0, 0.2);     
+			  border-bottom: 8px solid rgba(0, 0, 0, 0.2);     
+			  border-left: 8px solid rgba(0, 0, 0, 0.5);     
+			  -webkit-animation: load8 1.1s infinite linear;     
+			  animation: load8 1.1s infinite linear;     
+			}     
+			#loader8,#loader8:after {     
+			  border-radius: 50%;     
+			  width: 20px;     
+			  height: 20px;     
+			}     
+			@-webkit-keyframes load8 {     
+			  0% {     
+			    -webkit-transform: rotate(0deg);     
+			    transform: rotate(0deg);     
+			  }     
+			  100% {     
+			    -webkit-transform: rotate(360deg);     
+			    transform: rotate(360deg);     
+			  }     
+			}     
+			@keyframes load8 {     
+			  0% {     
+			    -webkit-transform: rotate(0deg);     
+			    transform: rotate(0deg);     
+			  }     
+			  100% {     
+			    -webkit-transform: rotate(360deg);     
+			    transform: rotate(360deg);     
+			  }     
+			}     
+			.modal {position: fixed;left: 0;right:0;top: 0;bottom: 0;z-index: 999;font-size: 15px;color: #f2f2f2;text-align: center;display: none;}
+			.modal-dialog {width: 200px;margin: 200px auto;}
+			.modal-content {background: #555;border:none;border-radius: 4px;padding:6px 8px;position: relative;}
+			[v-cloak] {
+			        display: none;
+			}	
